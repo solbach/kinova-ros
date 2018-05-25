@@ -1,3 +1,6 @@
+# Notice
+This is a fork of the [original kinova_ros repo by Kinova](https://github.com/Kinovarobotics/kinova-ros). The purpose of this fork is to migrate the code to ROS Kinetic running on Ubuntu 16.04. 
+
 # Table of Contents
 - [Important](#important)
 - [Kinova-ROS](#kinova-ros)
