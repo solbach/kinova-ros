@@ -1,3 +1,7 @@
+# Requirements
+sudo apt-get install ros-kinetic-moveit*
+sudo apt-get install ros-kinetic-trac-ik-kinematics-plugin
+
 # Some short notes on how to use the Jaco2 arm
 
 ## Preparation
@@ -10,4 +14,10 @@ roslaunch j2s7s300_moveit_config j2s7s300_virtual_robot_demo.launch
 
 ## MoveIt! with actual robot connected
 roslaunch kinova_bringup kinova_robot.launch kinova_robotType:=j2s7s300
+
+### Preset Positions
 roslaunch j2s7s300_moveit_config j2s7s300_demo.launch
+
+### Interactive Markers
+rosrun kinova_driver kinova_interactive_control j2s7s300
+rosrun rviz rviz
