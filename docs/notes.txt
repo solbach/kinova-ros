@@ -12,12 +12,12 @@ sudo cp kinova_driver/udev/10-kinova-arm.rules /etc/udev/rules.d/
 ## MoveIt! with virtual robot
 roslaunch j2s7s300_moveit_config j2s7s300_virtual_robot_demo.launch
 
-## MoveIt! with actual robot connected
+## MoveIt! with actual robot connected (load driver)
 roslaunch kinova_bringup kinova_robot.launch kinova_robotType:=j2s7s300
 
-### Preset Positions
+### RViz with MoveIt! Plugin
 roslaunch j2s7s300_moveit_config j2s7s300_demo.launch
 
-### Interactive Markers
+### Interactive Markers (beta)
 rosrun kinova_driver kinova_interactive_control j2s7s300
 rosrun rviz rviz
