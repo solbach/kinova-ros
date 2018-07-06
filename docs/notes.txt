@@ -23,6 +23,14 @@ rosrun kinova_driver kinova_interactive_control j2s7s300
 rosrun rviz rviz
 
 ## Gazebo Kinova
+
+### Requirements
+
+#### Install Gazebo 8
+
+* http://gazebosim.org/tutorials?cat=install&tut=install_ubuntu&ver=7.0
+* http://gazebosim.org/tutorials?tut=ros_wrapper_versions#Ineedtousegazebo8/gazebo9andROSKinetic/Lunar,whatcanIdo?
+
 roslaunch kinova_gazebo robot_launch.launch kinova_robotType:=j2s7s300
 
 roslaunch kinova_gazebo robot_launch.launch kinova_robotType:=j2n6s300 use_trajectory_controller:= true

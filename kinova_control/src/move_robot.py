@@ -63,7 +63,7 @@ def moveFingers (jointcmds,prefix,nbJoints):
 
 if __name__ == '__main__':
   try:    
-    rospy.init_node('move_robot_using_trajectory_msg')		
+    rospy.init_node('move_robot_using_trajectory_msg')	
     prefix, nbJoints, nbfingers = argumentParser(None)    
     #allow gazebo to launch
     rospy.sleep(1)
