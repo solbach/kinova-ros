@@ -1,6 +1,7 @@
 # Requirements
 sudo apt-get install ros-kinetic-moveit*
 sudo apt-get install ros-kinetic-trac-ik-kinematics-plugin
+sudo apt-get install ros-kinetic-ros-controllers*
 
 # Some short notes on how to use the Jaco2 arm
 
@@ -42,8 +43,9 @@ add --> Plugins --> Robot Tools --> Joint trajectory controller
 ### Interface Python
 rosrun kinova_control move_robot.py j2s7s300
 
-### Interface with MoveIt!
+### Interface with MoveIt! in RViz
 roslaunch j2s7s300_moveit_config j2s7s300_gazebo_demo.launch
 
 ## Pick and Place Demo
+roslaunch j2s7s300_moveit_config j2s7s300_virtual_robot_demo.launch
 rosrun kinova_arm_moveit_demo pick_place 
