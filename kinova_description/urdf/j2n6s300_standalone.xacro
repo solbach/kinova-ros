@@ -23,7 +23,7 @@
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <box size = "0.1 0.1 0.1"/>
+        <box size = "0.00001 0.00001 0.00001"/>
       </geometry>
     <!--<material name="Black" /> -->
     </visual>
@@ -31,7 +31,7 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <box size = "0.1 0.1 0.1"/> 
+        <box size = "0.00001 0.00001 0.00001"/> 
       </geometry>
     </collision>     
   </link>
@@ -45,7 +45,7 @@
     <origin xyz="0 0 0" rpy="0 0 0" />    
   </joint> 
 
-  <property name="robot_root" value="root" />
+  <xacro:property name="robot_root" value="root" />
 
   <xacro:j2n6s300  base_parent="${robot_root}"/>
 
