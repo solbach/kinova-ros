@@ -656,8 +656,10 @@ void PickPlaceJTL::evaluate_plan(moveit::planning_interface::MoveGroup &group)
             ROS_INFO("Setting plan time to %f sec", plan_time);
             group.setPlanningTime(plan_time);
             
-            moveit::planning_interface::MoveItErrorCode result_ = group.plan(my_plan);
+            moveit::planning_interface::MoveItErrorCode result_temp = group.plan(my_plan);
             
+            // set flag
+            result_ = (result_temp == moveit_msgs::MoveItErrorCodes::SUCCESS);
             //result_ = group.plan(my_plan);
 
             std::cout << "at attemp: " << count << std::endl;
