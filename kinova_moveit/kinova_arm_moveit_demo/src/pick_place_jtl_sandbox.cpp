@@ -36,7 +36,7 @@ PickPlaceJTLSandbox::PickPlaceJTLSandbox(ros::NodeHandle &nh):
 
     if (robot_connected_)
     {
-        sub_pose_ = nh_.subscribe<geometry_msgs::PoseStamped>("/" + robot_type_ +"_driver/out/tool_pose", 1, &PickPlaceJTL::get_current_pose, this);
+        sub_pose_ = nh_.subscribe<geometry_msgs::PoseStamped>("/" + robot_type_ +"_driver/out/tool_pose", 1, &PickPlaceJTLSandbox::get_current_pose, this);
     }
 
     // Before we can load the planner, we need two objects, a RobotModel and a PlanningScene.
@@ -284,30 +284,30 @@ void PickPlaceJTLSandbox::define_cartesian_pose()
     // define start pose before grasp
     start_pose_.header.frame_id = "root";
     start_pose_.header.stamp = ros::Time::now();
-    start_pose_.pose.position.x = 0.5;
-    start_pose_.pose.position.y = -0.5;
-    start_pose_.pose.position.z = 0.5;
+    start_pose_.pose.position.x = 0.22;
+    start_pose_.pose.position.y = -0.43;
+    start_pose_.pose.position.z = 0.125;
 
-    q = EulerZYZ_to_Quaternion(-M_PI/4, M_PI/2, M_PI);
-    start_pose_.pose.orientation.x = q.x();
-    start_pose_.pose.orientation.y = q.y();
-    start_pose_.pose.orientation.z = q.z();
-    start_pose_.pose.orientation.w = q.w();
+    //q = EulerZYZ_to_Quaternion(-M_PI/4, M_PI/2, M_PI);
+    start_pose_.pose.orientation.x = 0.655;
+    start_pose_.pose.orientation.y = -0.2725;
+    start_pose_.pose.orientation.z = 0.65;
+    start_pose_.pose.orientation.w = 0.27;
 
     // define grasp pose
     grasp_pose_.header.frame_id = "root";
     grasp_pose_.header.stamp  = ros::Time::now();
 
     // Euler_ZYZ (-M_PI/4, M_PI/2, M_PI/2)
-    grasp_pose_.pose.position.x = 0.0;
-    grasp_pose_.pose.position.y = 0.6;
-    grasp_pose_.pose.position.z = 0.3;
+    grasp_pose_.pose.position.x = 0.323;
+    grasp_pose_.pose.position.y = -0.4511;
+    grasp_pose_.pose.position.z = 0.107;
 
-    q = EulerZYZ_to_Quaternion(M_PI/4, M_PI/2, M_PI);
-    grasp_pose_.pose.orientation.x = q.x();
-    grasp_pose_.pose.orientation.y = q.y();
-    grasp_pose_.pose.orientation.z = q.z();
-    grasp_pose_.pose.orientation.w = q.w();
+    //q = EulerZYZ_to_Quaternion(M_PI/4, M_PI/2, M_PI);
+    grasp_pose_.pose.orientation.x = 0.6822;
+    grasp_pose_.pose.orientation.y = -0.2396;
+    grasp_pose_.pose.orientation.z = 0.6318;
+    grasp_pose_.pose.orientation.w = 0.27925;
 
     // generate_pregrasp_pose(double dist, double azimuth, double polar, double rot_gripper_z)
     grasp_pose_= generate_gripper_align_pose(grasp_pose_, 0.03999, M_PI/4, M_PI/2, M_PI);
@@ -449,10 +449,9 @@ bool PickPlaceJTLSandbox::my_pick()
     ROS_INFO_STREAM("*************************");
     ROS_INFO_STREAM("*************************");
     ROS_INFO_STREAM("*************************");
-    ROS_INFO_STREAM("Motion planning in cartesian space without obstacles ...");
+    ROS_INFO_STREAM("Motion planning to grasp object ...");
     clear_workscene();
     build_workscene();
-    add_target();
     ros::WallDuration(0.1).sleep();
 
     ROS_INFO_STREAM("Press any key to move to start pose ...");
@@ -461,9 +460,13 @@ bool PickPlaceJTLSandbox::my_pick()
     evaluate_plan(*group_);
 
     ROS_INFO_STREAM("Planning to go to pre-grasp position ...");
-    group_->setPoseTarget(pregrasp_pose_);
+    group_->setPoseTarget(grasp_pose_);
     evaluate_plan(*group_);
 
+    ROS_INFO_STREAM("Grasping ...");
+    gripper_action(0.75*FINGER_MAX); // partially close
+
+    /*
     ROS_INFO_STREAM("Approaching grasp position ...");
     group_->setPoseTarget(grasp_pose_);
     evaluate_plan(*group_);
@@ -478,7 +481,7 @@ bool PickPlaceJTLSandbox::my_pick()
 
     ROS_INFO_STREAM("Releasing gripper ...");
 
-    gripper_action(0.0); // full open
+    gripper_action(0.0); // full open*/
 
     clear_workscene();
     ROS_INFO_STREAM("Press any key to quit ...");
